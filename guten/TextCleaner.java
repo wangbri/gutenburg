@@ -1,5 +1,7 @@
 package guten;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class TextCleaner {
@@ -10,22 +12,21 @@ public class TextCleaner {
 	}
 
 	public void cleanText() {
-		File fileOut = new File(file.getName + "-cleaned.txt");
-        PrintWriter out = (new PrintWriter(new FileWriter(f2)));
+		// positive lookahead and negative lookbehind
+		String sentenceAnchors = "(?<=[,.!?;:-])(?!$)";
+
+		String fileName = file.getName();
+		File fileOut = new File(fileName.substring(0, fileName.indexOf(".")) + "-cleaned.txt");
 
     	try {
+        	PrintWriter out = new PrintWriter(fileOut);
 	    	Scanner sc = new Scanner(file);
     	    while (sc.hasNextLine()) {
-    	    	String curLine = sc.nextLine();
-    	    	if (!curLine.isEmpty()) {
-	    	    	String[] splitString = curLine.split("\\s+");
-	    	    	for (String word : splitString) {
-	    	    		if (!words.containsKey(word)) {
-	    	    			words.put(word, 1);
-	    	    		}
-	    	    	}
-	    	    }
+    	    	String curLine = sc.nextLine().replaceAll(sentenceAnchors, " ").replaceAll("\\p{P}", "").toLowerCase();
+    	    	out.println(curLine);
     	    }
+
+    	    out.close();
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
