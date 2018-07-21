@@ -7,9 +7,6 @@ import java.util.*;
 public class TextParser {
 	File file;
 
-	// TODO: data cleaning, remove quotations and input/iterate as arraylist
-	// set to lowercase, remove punctuation
-
     public TextParser(String filename) {
 		file = new File(filename);
     }
@@ -32,6 +29,7 @@ public class TextParser {
     	return words.size();
     }
 
+    // TODO: do in constructor? but good to decouple classes
     public int getTotalUniqueWords() {
     	HashMap<String, Integer> words = new HashMap<>();
 

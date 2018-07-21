@@ -87,7 +87,7 @@ public class TextGenerator {
 	public String generateText(int length) {
 		HashMap<String, Integer> wordsAfterCount = new HashMap<>();
 		StringBuilder sentence = new StringBuilder();
-		String curWord = "the";
+		String curWord = "she";
 		sentence.append(curWord);
 
 		for (int i = 0; i < length; i++) {
