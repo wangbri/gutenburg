@@ -6,11 +6,9 @@ import java.util.*;
 
 public class TextGenerator {
 	File file;
-	//HashMap<String, String> wordsAfter;
 
 	public TextGenerator(String fileName) {
 		file = new File(fileName);
-		//wordsAfter = new HashMap<>();
 	}
 
 	public String getWordAfter(String word, int numAfter) {
@@ -60,14 +58,12 @@ public class TextGenerator {
     		e.printStackTrace();
     	}
 
-    	//System.out.println(wordAppearances);
-
     	String maxWord = "";
     	int maxCount = 0;
     	ArrayList<Tup> wordsAppearances = new ArrayList<>(); 
 
 	  	for (Map.Entry<String, Integer> entry : wordAppearances.entrySet()) {
-    		String curWord = entry.getKey().replaceAll("\\s","");
+    		String curWord = entry.getKey().replaceAll("\\s", "");
     		int curCount = entry.getValue();
 
     		if (curWord.length() > 0 && !curWord.equals(word)) 
@@ -75,7 +71,6 @@ public class TextGenerator {
     	}
 
     	Collections.sort(wordsAppearances);
-    	//System.out.println(wordsAppearances);
 
     	if (wordsAppearances.size() > 0) {
     		return wordsAppearances.get(numAfter - 1).word;
@@ -84,28 +79,23 @@ public class TextGenerator {
     	}
 	}
 
-	public String generateText(int length) {
+	public String generateSentence(String word, int length) {
 		HashMap<String, Integer> wordsAfterCount = new HashMap<>();
 		StringBuilder sentence = new StringBuilder();
-		String curWord = "she";
+		String curWord = word; //"she";
 		sentence.append(curWord);
 
 		for (int i = 0; i < length; i++) {
+
+			// prevent loops in sentence structure, more randomness "the but the but the.."
 			if (!wordsAfterCount.containsKey(curWord)) {
 				wordsAfterCount.put(curWord, 1);
 			} else {
 				wordsAfterCount.put(curWord, wordsAfterCount.get(curWord) + 1);
 			}
 
-			// if (wordsAfter.containsKey(curWord)) {
-			// 	sentence.append(wordsAfter.get(curWord, wordsAfterCount.get(curWord)));
-			// } else {
 			String nextWord = getWordAfter(curWord, wordsAfterCount.get(curWord));
-			//System.out.println(nextWord);
-			//wordsAfter.put(curWord, nextWord);
 			sentence.append(" " + nextWord);
-			curWord = nextWord;
-			// }
 		}
 
 		return sentence.toString();

@@ -39,7 +39,7 @@ public class TextCompletor {
 	}
 
 	// traverse to last node associated with last char in prefix and return all subtrees
-	public List<String> getAutocomplete(String prefix) {
+	public List<String> getAutocompleteSentence(String prefix) {
 		TrieNode current = trie.root;
 		for(char ch : prefix.toCharArray()) {
 			current = current.getChild(ch);
@@ -49,6 +49,9 @@ public class TextCompletor {
 			}
 		}
 
-		return current.getWords();
+		List<String> wordList = current.getWords();
+		wordList.remove(prefix);
+
+		return wordList;
 	}
 }
