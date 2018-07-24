@@ -22,5 +22,7 @@ public class Gutenburg {
 
 		TextCompletor txtCompletor = new TextCompletor("./11-cleaned.txt");
 		System.out.println(txtCompletor.getAutocompleteSentence("wit"));
+
+		// would've used a word2vec model to vectorize words in a quote to find closest matching contiguous block of text in novel
     }
 }
